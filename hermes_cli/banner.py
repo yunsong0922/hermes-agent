@@ -111,9 +111,7 @@ def get_available_skills() -> Dict[str, List[str]]:
     skills_by_category: Dict[str, List[str]] = {}
     for skill in all_skills:
         category = skill.get("category") or "general"
-        cat_prefix = category.split("/")[-1]
-        display_name = f"{cat_prefix}:{skill['name']}"
-        skills_by_category.setdefault(category, []).append(display_name)
+        skills_by_category.setdefault(category, []).append(skill["name"])
     return skills_by_category
 
 

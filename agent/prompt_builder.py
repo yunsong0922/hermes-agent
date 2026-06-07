@@ -771,21 +771,15 @@ def build_skills_system_prompt(
             else:
                 index_lines.append(f"  {category}:")
             # Deduplicate and sort skills within each category
-            # Use "category:name" qualified form so callers know how to reference
-            # skills that live under a namespace directory (e.g. personal:wrap-up).
-            # Single-level categories (no "/" in name) get the prefix; deeply
-            # nested sub-categories (mlops/cloud) use only the leaf for brevity.
-            _cat_prefix = category.split("/")[-1]
             seen = set()
             for name, desc in sorted(skills_by_category[category], key=lambda x: x[0]):
                 if name in seen:
                     continue
                 seen.add(name)
-                display_name = f"{_cat_prefix}:{name}"
                 if desc:
-                    index_lines.append(f"    - {display_name}: {desc}")
+                    index_lines.append(f"    - {name}: {desc}")
                 else:
-                    index_lines.append(f"    - {display_name}")
+                    index_lines.append(f"    - {name}")
 
         result = (
             "## Skills (mandatory)\n"
